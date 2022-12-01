@@ -46,39 +46,10 @@ def classification(request):
         # acodec="aac",
     )
     ffmpeg.run(stream, overwrite_output=True)
-    # 動画の音が残る
-    # Dockerの隔離性のため外部から参照不可？
 
+    # 結合した動画をLolipopへ転送
     url = "https://iut-b.main.jp/up"
     files = {"file": open(new_video_path, "rb")}
     res = requests.post(url, files=files)
 
-    # with open(new_video_path, "rb") as file:
-    #     requests.post(url, data=file)
-
-    # os.environ[
-    #     "GOOGLE_APPLICATION_CREDENTIALS"
-    # ] = "C:/Users/bte/OneDrive/flaskbook-app-20221031-cb2333f040b6.json"
-
-    # key_path = "C:/Users/bte/OneDrive/flaskbook-app-20221031-cb2333f040b6.json"
-    # credential = service_account.Credentials.from_service_account_file(key_path)
-
-    # client = google.cloud.storage.Client(credentials=credential)
-    # bucket_name = "flaskbook-app-20221031-bucket"
-    # bucket = client.get_bucket(bucket_name)
-
-    # ffmpeg_cmd = "ffmpeg -i " + video_path + " -ac 1 -ar 16000 -f wav " + new_video_path
-    # ffmpeg_cmd = "ffmpeg -ss 0:10 -to 1:10 -i" + video_path + "-c copy" + new_video_path
-    # command1 = shlex.split(ffmpeg_cmd)
-    # subprocess.run(command1)
-
-    # new_video_name = os.path.split(new_video_path)[1]
-
-    # blob = bucket.blob(new_video_name)
-    # blob.upload_from_filename(new_video_path)
-    # blob.make_public()
-    # gs_uri = "gs://" + bucket_name + "/" + new_video_name
-
-    # return jsonify({"new_video_path": new_video_path}), 201
-    # return jsonify({"gs_uri": gs_uri}), 201
     return jsonify({"new_video_path": res.status_code}), 201
