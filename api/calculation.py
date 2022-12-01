@@ -3,13 +3,8 @@ import os
 import cv2
 import ffmpeg
 
-# import google.cloud.storage
 import requests
 from flask import jsonify
-from google.oauth2 import service_account
-
-# import shlex
-# import subprocess
 
 
 def classification(request):
